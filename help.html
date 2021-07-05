@@ -1,21 +1,49 @@
 <html>
   <head>
-    <!-- Tab Setup -->
+    <!-- Page Setup-->
     <title>Drizzle</title>
-    <link rel="shortcut icon" type="image/png" href="icon.png"/>
-    <!-- Import Stuff here -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Import Code Here -->
+    <script src="imp.js"></script>
+
   </head>
 
   <body>
-    <div class='navbar'>
-      <span><a href="index.html">Home</a></span>
-      <span><a href="help.html">About</a></span>
-    </div>
+    <nav>
+      <div class="nav-wrapper blue darken-2">
+        <a href="dash.html" class="brand-logo right" style="margin-right:10px; margin-bottom:15px;">Drizzle<img src="icon.png" style="margin-bottom:-20px;"></a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="help.html">Help</a></li>
+          <li><a href="dash.html">Dash</a></li>
+        </ul>
+      </div>
+    </nav>
 
-    <h1 id=title>Help<h1>
-    <p>How are you doing? I'm doing good
-<break>my paragraphs are being fat again ):<</p>
+    <div class="row"> <!-- Row 1 -->
+      <div class="col s12">
+        <div class="card white darken-1">
+          <div class="card-content black-text">
+            <span class="card-title">Help!</span>
+          </div>
+        </div>
+      </div>
+    </div> <!-- Row 1 End -->
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="reportbugs" class="materialize-textarea" data-length="120"></textarea>
+        <label for="reportbugs">Report bugs here.</label>
+      </div>
+    </div>
+  </div>
+
   </body>
 
   <script>
