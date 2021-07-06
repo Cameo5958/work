@@ -9,10 +9,6 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!-- Import Code Here -->
-    <script src="imp.js"></script>
-
   </head>
 
   <body>
@@ -35,11 +31,10 @@
             <p>Found a glitch? Oh no! Report the problem below, along with your email, so we can contact you ASAP!</p>
           </div>
         </div>
-      </div>
-    </div> <!-- Row 1 End -->
-    
-    <div class="row"> <!-- Email Textbox-->
-      <form class="col s12">
+      </div> <!-- Row 1 End -->
+
+    <div class="row"> <!-- Both of the textboxes will be put here.-->
+      <form class="col s6"> <!-- Email Textbox-->
         <div class="row">
           <div class="input-field col s12">
             <input id="email" type="email" class="validate">
@@ -47,19 +42,24 @@
             <span class="helper-text" data-error="Invalid Email" data-success="Valid Email">Enter your email.</span>
           </div>
         </div>
-      </form>
-    </div> <!-- End of Email Textbox-->
-    
-    <div class="row"> <!-- Report glitches and errors textbox-->
-      <div class="input-field col s12">
+      </form> <!-- End of Email Textbox-->
+
+      <div class="input-field col s6"><!-- Report glitches and errors textbox-->
         <textarea id="reportbugs" class="materialize-textarea" data-length="120"></textarea>
         <label for="reportbugs">Report bugs here.</label>
       </div>
-    </div>
-  </div><!-- Textbox end-->
+    </div> <!-- Textbox end-->
 
+    <!-- Now, we create a button that logs the error. -->
+    <a class="waves-effect waves-light btn" onclick='getInput()' style='margin-left:20px'>submit report</a>
   </body>
 
   <script>
+    function getInput() {
+      var uEmail = document.getElementById('email').value;
+      var uError = document.getElementById('reportbugs').value;
+      console.log(uEmail)
+      console.log(uError)
+    }
   </script>
 </html>

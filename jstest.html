@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="row">
+      <form class="col s6">
+        <div class="row">
+          <div class="input-field col s12" style='margin-left:10px'>
+            <input id="input">
+          </div>
+        </div>
+        <div id='output'></div>
+      </form>
+      <form class="col s6">
+        <div class="row">
+          <a class="waves-effect red btn" onclick='fillList()' style="margin-top:20px; margin-left:10px">Add</a>
+        </div>
+      </form>
+    </div>
+  </body>
+
+  <script>
+    var mylist=[]; // global variable
+
+    function fillList() {
+      var uInput = document.getElementById('input');
+      var uOutput = document.getElementById('output');
+      mylist.push(uInput.value); // local variable
+
+      var myHTML = '<ul class="collection">';
+      for (i=0;i<mylist.length;i++) {
+        var newAddition = '<li class="collection-item avatar"><img src="icon.png" alt="" class="circle"><span class="title">Entry ' + (i+1) + '</span><p>' + mylist[i] + '</p><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a></li>';
+        myHTML = myHTML + newAddition + '<br>';
+      }
+      myHTML = myHTML + "</ul>"
+      uOutput.innerHTML = myHTML;
+      uInput.value = "";
+    }
+
+  </script>
+</body>
