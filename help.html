@@ -32,17 +32,31 @@
         <div class="card white darken-1">
           <div class="card-content black-text">
             <span class="card-title">Help!</span>
+            <p>Found an in-game glitch? Oh no! Report the problem below, along with your email, so we can contact you ASAP!</p>
           </div>
         </div>
       </div>
     </div> <!-- Row 1 End -->
-    <div class="row">
+    
+    <div class="row"> <!-- Email Textbox-->
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+          </div>
+        </div>
+      </form>
+    </div> <!-- End of Email Textbox-->
+    
+    <div class="row"> <!-- Report glitches and errors textbox-->
       <div class="input-field col s12">
         <textarea id="reportbugs" class="materialize-textarea" data-length="120"></textarea>
         <label for="reportbugs">Report bugs here.</label>
       </div>
     </div>
-  </div>
+  </div><!-- Textbox end-->
 
   </body>
 
