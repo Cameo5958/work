@@ -95,7 +95,7 @@
              var wPlace = document.getElementById('weather')
              let response = wdata.data
              let wToday = response.dataseries[0]
-             var myHTML = "Today's temperature can be from " + wToday.temp2m.min + " to " + wToday.temp2m.max
+             var myHTML = "Today's temperature can be from " + wToday.temp2m.min + " degrees to " + wToday.temp2m.max + " degrees celsius."
              wPlace.innerHTML = myHTML
            })
     }
