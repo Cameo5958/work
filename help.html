@@ -50,16 +50,62 @@
       </div>
     </div> <!-- Textbox end-->
 
-    <!-- Now, we create a button that logs the error. -->
-    <a class="waves-effect waves-light btn" onclick='getInput()' style='margin-left:20px'>submit report</a>
+    <div class='row'>
+      <form class="col s6">
+        <div class="row">
+          <!-- Now, we create a button that logs the error. -->
+          <a class="waves-effect waves-light btn" onclick='getInput()' style='margin-left:20px'>submit report</a>
+        </div>
+      </form>
+      <form class="col s6">
+        <div class="row">
+          <div id="thankbox"></div>
+        </div>
+      </form>
+    </div>
   </body>
 
   <script>
+    var tyBox = document.getElementById('thankbox');
+
     function getInput() {
-      var uEmail = document.getElementById('email').value;
-      var uError = document.getElementById('reportbugs').value;
-      console.log(uEmail)
-      console.log(uError)
+      let uEmail = document.getElementById('email').value;
+      let uError = document.getElementById('reportbugs').value;
+      let rDate = getDate()
+      let rTime = getTime()
+      if (uEmail!='') {
+        tyBox.innerHTML = '<p>Thank you. We will review your report and take nessessary actions.<br>If required, we will contact you for questioning on the issue.</p>'
+      }
+      JSONandsend(uEmail, uError, rDate, rTime);
+
+    }
+
+    function getDate() {
+      let now = new Date();
+      let date = now.getFullYear() + '/' + (now.getMonth()+1) + '/' + now.getDate();
+      return date;
+    }
+
+    function getTime() {
+      let now = new Date();
+      var hours = now.getHours()
+      if (hours > 12) {
+        hours = hours - 12
+      }
+      let time = hours + ':' + now.getMinutes() + ':' + now.getSeconds();
+      return time;
+    }
+
+    function JSONandsend(email, report, date, time) {
+      // How the JSON will be formatted:
+      // email, report, date, time (easy)
+      let jsonSend = `{
+  "email":"` + email + `",
+  "report":"` + report + `",
+  "date":"` + date + `",
+  "time":"` + time + `"
+}`;
+      console.log(jsonSend); // replace this with the code that sends JSON
     }
   </script>
 </html>
