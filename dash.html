@@ -6,19 +6,33 @@
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
     <!-- Axios -->
     <script src='https://unpkg.com/axios@0.21.1/dist/axios.min.js'></script>
 
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <!-- materializecss icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style id='chg_style'>
+    </style>
   </head>
 
-  <body>
-    <nav>
-      <div class="nav-wrapper blue darken-2">
-        <a href="#" class="brand-logo right" style="margin-right:10px; margin-bottom:15px;">Drizzle<img src="icon.png" style="margin-bottom:-20px;"></a>
+  <body style='background:grey;' id='bodyid'>
+    <nav id='navbar'>
+      <div class="nav-wrapper blue darken-2" style="height:70px">
+        <a href="dash.html" class="brand-logo right" style="margin-right:10px; margin-bottom:15px;">Drizzle<img src="icon.png" style="margin-bottom:-20px;"></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><a href="index.html">Home</a></li>
           <li><a href="help.html">Help</a></li>
@@ -27,51 +41,112 @@
       </div>
     </nav>
 
-    <div class="row"> <!-- Row 1 -->
-      <div class="col s12 m6">
-        <div class="card white darken-1">
-          <div class="card-content black-text">
-            <span class="card-title" id='geo'></span>
-            <div class="row">
-              <div class="col s6">
-                <div id='date'></div>
-              </div>
-              <div class="col s6">
-                <div id='time'></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col s12 m6">
-        <div class="card white darken-1">
-          <div class="card-content black-text">
-            <span class="card-title">The weather today:</span>
-            <div id='weather'>
-              <div class="progress">
-                <div class="indeterminate"></div>
+    <div id='all_cards'>
+      <div class="row" style='margin-top:20px'> <!-- Row 1 -->
+        <div class="col m12 l6">
+          <div class="card grey darken-3" id="card0">
+            <div class="card-content black-text" id='row1'>
+              <span class="card-title" id='geo' id='alltext'>Your location:</span>
+              <div class="row">
+                <div class="col s6">
+                  <div id='date'></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- Row 1 End -->
 
-    <div class="row"> <!-- Row 3 -->
-      <div class="col s12">
-        <div class="card white darken-1">
-          <div class="card-content black-text">
-            <span class="card-title">Weather:</span>
-            <p>Heatstroke weather, you won't like it.</p>
+        <div class="col m12 l6">
+          <div class="card grey darken-3" id="card1">
+            <div class="card-content black-text" id='row1'>
+              <span class="card-title" id="wTitle" id='alltext'>The weather today:</span>
+              <div id='weather'>
+                <div class="progress">
+                  <div class="indeterminate"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div> <!-- Row 3 End -->
+      </div> <!-- Row 1 End -->
 
+      <div class="row"> <!-- Row 2 -->
+        <div class="col l7 m12">
+          <div class="card grey darken-3" id="card2">
+            <div class="card-content black-text" id='row2'>
+              <span class="card-title" id='alltext'>Location:</span>
+              <div id="locateid" style='height:560px'></div>
+            </div>
+          </div>
+        </div>
+        <div class="col l5 m12">
+          <div class="card grey darken-3" id="card3">
+            <div class="card-content black-text" id='row2'>
+              <span class="card-title" id='alltext'>News:</span>
+              <div id="news" id='alltext'>Getting News...</div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- Row 2 End -->
+
+      <div class="row"> <!-- Row 3 -->
+        <div class="col l9 m12">
+          <div class="card grey darken-3" id="card4">
+            <div class="card-content black-text" id='row3'>
+              <span class="card-title" id='alltext'>Temperatures over a week</span>
+              <canvas id="line-chart" width="80%" height="18%"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col l3 m12">
+          <div class="card grey darken-3" id="card5">
+            <div class="card-content black-text" id='row3'>
+              <span class="card-title" id='alltext'>Wind Speed</span>
+              <canvas id="bar-chart" width="80%" height="60%"></canvas>
+            </div>
+          </div>
+        </div>
+      </div> <!-- Row 3 End -->
+
+      <div class="row"> <!-- Row 4 -->
+        <div class="col l6 m12">
+          <div class="card grey darken-3" id="card6">
+            <div class="card-content black-text" id='row4'>
+              <span class="card-title" id='alltext'>Settings</span>
+                <div class="switch" id='ld_mode'> <!-- Switch -->
+                  <form action="console.log('Hello!');">
+                    <label id='alltext'>
+                      Light mode
+                        <input type="checkbox" id='checkbox_ld'>
+                        <span class="lever"></span>
+                      Dark mode
+                    </label>
+                  </form>
+                </div>
+                <div class="switch" id='ld_mode'> <!-- Switch -->
+                  <input type="checkbox" id="colorscheme">
+                  <label for="colorscheme" id="darkmode-label" id='alltext'>Color Scheme</label>
+                </div>
+                <div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col l6 m12">
+          <div class="card grey darken-3" id="card7">
+            <div class="card-content black-text" id='row4'>
+              <span class="card-title" id='alltext'>Wind Speed</span>
+              <canvas id="bar-chart" width="80%" height="60%"></canvas>
+            </div>
+          </div>
+        </div>
+      </div> <!-- Row 4 End -->
+    </div>
   </body>
 
   <script>
+    runBefore()
 
     axios.get('https://ipapi.co/json/')
          .then(ipdata => {
@@ -79,26 +154,268 @@
            var lat = response.latitude
            var long = response.longitude
            geoData(response.city + ', ' + response.region, response.country_name);
+           // map init
+           getMap(lat, long, response.city)
+
+           // weather import
            var wstr = 'https://www.7timer.info/bin/civillight.php?lon=' + long + '&lat=' + lat + '&unit=metric&output=json'
-           console.log(wstr)
            weatherData(wstr)
+
+           // news
+           newNews(response.country_name, response.region_code)
          })
 
     function geoData(param, country) {
       var geoPlace = document.getElementById('geo')
-      geoPlace.innerHTML = 'Your location: ' + param + ' (' + country +')';
+      geoPlace.innerHTML = '<p id="alltext">Your location: ' + param + ' (' + country +')</p>';
     }
 
     function weatherData(wstr) {
       axios.get(wstr)
            .then(wdata => {
+             var wTitle = document.getElementById('wTitle')
              var wPlace = document.getElementById('weather')
-             let response = wdata.data
-             let wToday = response.dataseries[0]
-             var myHTML = "Today's temperature can be from " + wToday.temp2m.min + " degrees to " + wToday.temp2m.max + " degrees celsius."
+             var response = wdata.data
+             var wToday = response.dataseries[0]
+             var myHTML = "<p id='alltext'>Today's temperature can be from " + wToday.temp2m.min + " degrees to " + wToday.temp2m.max + " degrees celsius.</p>"
+
+             wTitle.innerHTML = '<p id="alltext">The weather today: <i class="wi wi-cloudy"></i> ' + wToday.weather + "</p>"
              wPlace.innerHTML = myHTML
+             line_chart(response.dataseries)
+             bar_chart(response.dataseries)
            })
     }
 
+    function runBefore() {
+      // Everything that runs before the actual code (date, etc.) goes here.
+      // Date:
+      var today = new Date()
+      var month = today.getMonth() + 1;
+      var date = today.getDate();
+
+      month = month.toString()
+      date = date.toString()
+
+      if (month.length == 1) {
+        month = '0' + month
+      }
+      if (date.length == 1) {
+        date = '0' + date
+      }
+
+      var day = today.getFullYear() + '/' + month + '/' + date;
+      document.getElementById('date').innerHTML = "<p id='alltext'>Today's date: " + day + "</p>"
+
+      if (getCookie('ld_mode') == '') {
+        setCookie('ld_mode', 'light');
+        setToLightMode();
+      } else if (getCookie('ld_mode') == 'light') {
+        setToLightMode()
+      } else {
+        setToDarkMode()
+        document.getElementById("ld_checkbox").checked = true;
+      }
+    }
+
+    function newNews(country, area) {
+      var options = {
+        method: 'GET',
+        url: 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/NewsSearchAPI',
+        params: {
+          q: area,
+          pageNumber: '1',
+          pageSize: '10',
+          thumbnails: 'true',
+          location: country
+        },
+        headers: {
+          'x-rapidapi-key': '2b184737d3mshfc63de2a249d199p1acd6fjsna41b1505fda6',
+          'x-rapidapi-host': 'contextualwebsearch-websearch-v1.p.rapidapi.com'
+        }
+      };
+
+      axios.request(options).then(function (response) {
+      	var news = response.data.value
+        var total = 5;
+        if (total > news.length) {
+          total = news.length
+        }
+
+        var newHTML = '';
+        for (i=0;i<total;i++) {
+          article = news[i]
+          newPushValue = `
+<li class="collection-item avatar">
+<span class="title">` + article.title + `</span>
+<p><br>` + article.description + `
+</p>
+<a href="` + article.url + `" class="secondary-content">Link to full article</a>
+</li>`
+          newHTML = newHTML + newPushValue
+        }
+
+        newHTML = '<ul class="collection">' + newHTML + '</ul>'
+        document.getElementById('news').innerHTML = newHTML
+      })
+    }
+
+    function line_chart(wdata) {
+
+      var labs = [];
+      var highs = [];
+      var lows = [];
+
+      for (i=0;i<wdata.length;i++){
+        labs.push(wdata[i].date)
+        highs.push(wdata[i].temp2m.max)
+        lows.push(wdata[i].temp2m.min)
+      }
+
+      new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+          labels: labs,
+          datasets: [{
+              data: highs,
+              label: "Highs",
+              borderColor: "#ff0000",
+              fill: false
+            }, {
+              data: lows,
+              label: "Lows",
+              borderColor: "#0000ff",
+              fill: false
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: false,
+          }
+        }
+      });
+    }
+
+    function bar_chart(wdata) {
+      var labs = [''];
+      var winds = [0];
+
+      for (i=0;i<wdata.length;i++){
+        labs.push(wdata[i].date)
+        winds.push(wdata[i].wind10m_max)
+      }
+
+      labs.push('')
+      winds.push(0)
+
+      // Bar chart
+      new Chart(document.getElementById("bar-chart"), {
+          type: 'bar',
+          data: {
+            labels: labs,
+            datasets: [
+              {
+                label: "Wind Speed",
+                backgroundColor: ["#000000","#FF0000", "#FF7F00","#FFFF00","#00FF00","#0000FF","#4B0082","#9400D3"],
+                data: winds
+              }
+            ]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: false,
+              text: ''
+            }
+          }
+      });
+    }
+
+    function getMap(lat, lon, city) {
+      var map = L.map('locateid').setView([lat, lon], 13);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+             maxZoom: 18,
+             id: 'mapbox/streets-v11',
+             tileSize: 512,
+             zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiY2FtZW81OTU4IiwiYSI6ImNrcXU2ajZrcjAxazEydnM4bXBmbGtpZnEifQ.9pe4bQOryU0dGTbBF0lN6w'
+           }).addTo(map);
+      L.circle([lat,lon],{color:'blue',radius:200}).addTo(map).bindPopup('<h6>' + city + '</h6>');
+
+      L.marker([lat, lon],{color:'red'}).addTo(map)
+          .bindPopup('<h6>' + city + '</h6>')
+          .openPopup();
+      }
+
+    function setCookie(cname, cvalue) {
+      document.cookie = cname + "=" + cvalue + '; expires=Sun, 1 Jan 2022 12:00:00 UTC';
+    }
+
+    function getCookie(cname) {
+      let name = cname + "=";
+      let ca = document.cookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function setToLightMode() {
+      setCookie('ld_mode', 'light')
+      for (i=0;i<8;i++){
+        var card = document.getElementById('card'+i)
+        card.className = 'card white darken-1'
+      }
+      var bodyarea = document.getElementById('bodyid')
+      bodyarea.style.background = 'white'
+
+      if (document.getElementById('wordcolor') != undefined){
+        var sheetToBeRemoved = document.getElementById('wordcolor');
+        var sheetParent = sheetToBeRemoved.parentNode;
+        sheetParent.removeChild(sheetToBeRemoved);
+      }
+
+      var sheet = document.createElement('style')
+      sheet.innerHTML = "#alltext {color:black;}";
+      document.body.appendChild(sheet);
+    }
+
+    function setToDarkMode() {
+      setCookie('ld_mode', 'dark')
+      for (i=0;i<8;i++){
+        var card = document.getElementById('card'+i)
+        card.className = 'card grey darken-3'
+      }
+      var bodyarea = document.getElementById('bodyid')
+      bodyarea.style.background = 'grey'
+
+      if (document.getElementById('wordcolor') != undefined){
+        var sheetToBeRemoved = document.getElementById('wordcolor');
+        var sheetParent = sheetToBeRemoved.parentNode;
+        sheetParent.removeChild(sheetToBeRemoved);
+      }
+
+      var sheet = document.createElement('style')
+      sheet.innerHTML = "#alltext {color:#d0d0d0;}";
+      document.body.appendChild(sheet);
+    }
+
+    function checkCheckboxes() {
+      var checkboxObject = document.getElementById('checkbox_ld')
+      if (checkboxObject.checked) {
+        setToDarkMode()
+      } else {
+        setToLightMode()
+      }
+    }
+
+    document.getElementById('checkbox_ld').addEventListener("check", checkCheckboxes);
   </script>
 </html>
