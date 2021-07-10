@@ -34,8 +34,9 @@
       <div class="nav-wrapper blue darken-2" id='navbarcolor' style="height:80px">
         <a href="dash.html" class="brand-logo right" style="margin-right:10px; margin-bottom:15px;">Drizzle<img src="icon.png" style="margin-bottom:-20px;"></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><a href="dash.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="help.html">Help</a></li>
+          <li><a href="dash.html">Dash</a></li>
         </ul>
       </div>
     </nav>
@@ -111,7 +112,7 @@
       <div class="row"> <!-- Row 4 -->
         <div class="col l3 m12">
           <div class="card grey darken-3" id="card6">
-            <div class="card-content black-text" id='row4'>
+            <div class="card-content black-text" style='height:420px'>
               <span class="card-title" id='alltext'>Settings</span>
                 <div class="switch" id='ld_mode'> <!-- Switch -->
                   <form>
@@ -145,7 +146,7 @@
           </div>
           <div class="col l9 m12">
             <div class="card grey darken-3" id="card7">
-              <div class="card-content black-text" id='row4'>
+              <div class="card-content black-text" style='height:420px'>
                 <span class="card-title" id='alltext'>Local Pictures</span>
                 <div id='abc'>
                 </div>
@@ -505,7 +506,7 @@
       var navbar = document.getElementById('navbarcolor')
       var textinput = document.getElementById('color')
       if (textinput.value[0] == '#') {
-        var newvalue = textinput.substr(1, 6)
+        var newvalue = textinput.substr(1)
       } else {
         newvalue = textinput.value
       }
