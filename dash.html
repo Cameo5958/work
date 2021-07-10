@@ -31,7 +31,7 @@
 
   <body style='background:grey;' id='bodyid'>
     <nav id='navbar'>
-      <div class="nav-wrapper blue darken-2" style="height:70px">
+      <div class="nav-wrapper blue darken-2" id='navbarcolor' style="height:70px">
         <a href="dash.html" class="brand-logo right" style="margin-right:10px; margin-bottom:15px;">Drizzle<img src="icon.png" style="margin-bottom:-20px;"></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><a href="index.html">Home</a></li>
@@ -109,12 +109,12 @@
       </div> <!-- Row 3 End -->
 
       <div class="row"> <!-- Row 4 -->
-        <div class="col l6 m12">
+        <div class="col l3 m12">
           <div class="card grey darken-3" id="card6">
             <div class="card-content black-text" id='row4'>
               <span class="card-title" id='alltext'>Settings</span>
                 <div class="switch" id='ld_mode'> <!-- Switch -->
-                  <form action="console.log('Hello!');">
+                  <form>
                     <label id='alltext'>
                       Light mode
                         <input type="checkbox" id='checkbox_ld'>
@@ -124,20 +124,30 @@
                   </form>
                 </div>
                 <div class="switch" id='ld_mode'> <!-- Switch -->
-                  <input type="checkbox" id="colorscheme">
-                  <label for="colorscheme" id="darkmode-label" id='alltext'>Color Scheme</label>
+                  <div class="input-field col s9">
+                    <input placeholder="#000000" id="color" type="text" class="validate">
+                    <label for="color">Color Scheme</label>
+                  </div>
                 </div>
-                <div>
-                </div>
+                <div class="switch" id='british'>
+                  <form action="console.log('Hello!');">
+                    <label id='alltext'>
+                      Metric
+                        <input type="checkbox" id='checkbox_ld'>
+                        <span class="lever"></span>
+                      Bri'ish
+                      </label>
+                    </form>
+                  </div>
+                <a class="waves-effect waves-light btn" onclick='checkCheckboxes()'>Save</a>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col l6 m12">
-          <div class="card grey darken-3" id="card7">
-            <div class="card-content black-text" id='row4'>
-              <span class="card-title" id='alltext'>Wind Speed</span>
-              <canvas id="bar-chart" width="80%" height="60%"></canvas>
+          <div class="col l9 m12">
+            <div class="card grey darken-3" id="card7">
+              <div class="card-content black-text" id='row4'>
+                <span class="card-title" id='alltext'>Local Pictures</span>
+              </div>
             </div>
           </div>
         </div>
@@ -414,8 +424,13 @@
       } else {
         setToLightMode()
       }
+      setNavColor()
     }
 
-    document.getElementById('checkbox_ld').addEventListener("check", checkCheckboxes);
+    function setNavColor(){
+      var navbar = document.getElementById('navbarcolor')
+      var textinput = document.getElementById('color')
+      navbar.className = 'nav-wrapper ' + textinput.value
+    }
   </script>
 </html>
