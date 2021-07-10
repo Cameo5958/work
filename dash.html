@@ -31,7 +31,7 @@
 
   <body style='background:grey;' id='bodyid'>
     <nav id='navbar'>
-      <div class="nav-wrapper blue darken-2" id='navbarcolor' style="height:70px">
+      <div class="nav-wrapper blue darken-2" id='navbarcolor' style="height:80px">
         <a href="dash.html" class="brand-logo right" style="margin-right:10px; margin-bottom:15px;">Drizzle<img src="icon.png" style="margin-bottom:-20px;"></a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><a href="index.html">Home</a></li>
@@ -177,7 +177,10 @@
            } else {
              unit = 'british'
            }
+
+           console.log('running getphotos!')
            getPhotos(lat, long)
+           console.log('done.')
 
            // news
            newNews(response.country_name, response.region_code)
@@ -188,7 +191,18 @@
 
     function getPhotos(lat, lon) {
       axios.get("https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=10000&ggscoord=" + lat + "|" + lon + "0&ggslimit=3&prop=imageinfo&iilimit=1&iiprop=url&iiurlheight=300&origin=*")
+           .then(response => {
+             var dHandle = document.getElementById('photos')
+             var arr = Object.values(response.data.query.pages)
+             var myHTML = "";
 
+             for (i=0;arr.length<3;i++) {
+               myHTML = myHTML + `<div class='col s12 m4><div class='card'><img src='`+ arr[i].imageinfo.thumburl +`' ></div></div>`
+             }
+
+             dHandle.innerHTMl = myHTML
+             console.log(arr)
+           })
     }
 
     function geoData(param, country) {
@@ -258,6 +272,7 @@
 
       if (getCookie('color') == ''){
         setCookie('color', 'blue darken-2')
+        setNavColor(getCookie('color'))
       } else {
         setNavColor(getCookie('color'))
       }
