@@ -134,12 +134,6 @@
                     </label>
                   </form>
                 </div>
-                <div class="switch" id='ld_mode'> <!-- Switch -->
-                  <div class="input-field col s9">
-                    <input placeholder="#000000" id="color" type="text" class="validate">
-                    <label for="color">Color Scheme</label>
-                  </div>
-                </div>
                 <a class="waves-effect waves-light btn" onclick='checkCheckboxes()'>Save</a>
               </div>
             </div>
@@ -268,13 +262,6 @@
       } else {
         setToBritish()
         document.getElementById("metric").checked = true;
-      }
-
-      if (getCookie('color') == ''){
-        setCookie('color', 'blue darken-2')
-        setNavColor(getCookie('color'))
-      } else {
-        setNavColor(getCookie('color'))
       }
     }
 
@@ -490,7 +477,6 @@
       } else {
         setToMetric()
       }
-      setNavColor()
       location.reload()
     }
 
@@ -500,18 +486,6 @@
 
     function setToBritish() {
       setCookie('metric', 'no')
-    }
-
-    function setNavColor(){
-      var navbar = document.getElementById('navbarcolor')
-      var textinput = document.getElementById('color')
-      if (textinput.value[0] == '#') {
-        var newvalue = textinput.substr(1)
-      } else {
-        newvalue = textinput.value
-      }
-      navbar.className = newvalue
-      setCookie('color', newvalue)
     }
   </script>
 </html>
