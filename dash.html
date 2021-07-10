@@ -148,7 +148,7 @@
             <div class="card grey darken-3" id="card7">
               <div class="card-content black-text" id='row4'>
                 <span class="card-title" id='alltext'>Local Pictures</span>
-                <div class="photos">
+                <div id='abc'>
                 </div>
               </div>
             </div>
@@ -178,9 +178,7 @@
              unit = 'british'
            }
 
-           console.log('running getphotos!')
            getPhotos(lat, long)
-           console.log('done.')
 
            // news
            newNews(response.country_name, response.region_code)
@@ -192,16 +190,18 @@
     function getPhotos(lat, lon) {
       axios.get("https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=10000&ggscoord=" + lat + "|" + lon + "0&ggslimit=3&prop=imageinfo&iilimit=1&iiprop=url&iiurlheight=300&origin=*")
            .then(response => {
-             var dHandle = document.getElementById('photos')
-             var arr = Object.values(response.data.query.pages)
+             var dHandle = document.getElementById('abc');
+             var arr = Object.values(response.data.query.pages);
              var myHTML = "";
 
-             for (i=0;arr.length<3;i++) {
-               myHTML = myHTML + `<div class='col s12 m4><div class='card'><img src='`+ arr[i].imageinfo.thumburl +`' ></div></div>`
+             for (i=0;i<arr.length;i++) {
+               myHTML = myHTML + `<div class='col s12 m4'>
+  <div class='card'>
+    <img src='`+ arr[i].imageinfo[0].thumburl +`' style='width'>
+  </div>
+</div>`;
              }
-
-             dHandle.innerHTMl = myHTML
-             console.log(arr)
+             dHandle.innerHTML = myHTML
            })
     }
 
@@ -474,13 +474,6 @@
       var sheet = document.createElement('style')
       sheet.innerHTML = "#alltext {color:#d0d0d0;}";
       document.body.appendChild(sheet);
-    }
-
-    function getPhotos() {
-      axios.get('https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=10000&ggscoord=51|0&ggslimit=3&prop=imageinfo&iilimit=1&iiprop=url&iiurlheight=300&origin=*')
-           .then(response => {
-             var dHandle = document.getElementById('photos')
-           })
     }
 
     function checkCheckboxes() {
