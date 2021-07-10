@@ -203,7 +203,11 @@
              var wPlace = document.getElementById('weather')
              var response = wdata.data
              var wToday = response.dataseries[0]
-             var myHTML = "<p id='alltext'>Today's temperature can be from " + wToday.temp2m.min + " degrees to " + wToday.temp2m.max + " degrees celsius.</p>"
+             var unit = 'fahrenheit';
+             if (getCookie('metric') == 'yes') {
+               unit = 'celsius'
+             }
+             var myHTML = "<p id='alltext'>Today's temperature can be from " + wToday.temp2m.min + " degrees to " + wToday.temp2m.max + " degrees "+ unit +".</p>"
 
              wTitle.innerHTML = '<p id="alltext">The weather today: <i class="wi wi-cloudy"></i> ' + wToday.weather + "</p>"
              wPlace.innerHTML = myHTML
@@ -458,7 +462,10 @@
     }
 
     function getPhotos() {
-      var link = 'https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=10000&ggscoord=51|0&ggslimit=3&prop=imageinfo&iilimit=1&iiprop=url&iiurlheight=300&origin=*';
+      axios.get('https://commons.wikimedia.org/w/api.php?format=json&action=query&generator=geosearch&ggsprimary=all&ggsnamespace=6&ggsradius=10000&ggscoord=51|0&ggslimit=3&prop=imageinfo&iilimit=1&iiprop=url&iiurlheight=300&origin=*')
+           .then(response => {
+             var dHandle = document.getElementById('photos')
+           })
     }
 
     function checkCheckboxes() {
